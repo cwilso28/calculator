@@ -1,0 +1,15 @@
+* {
+  border: 1px solid black;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  margin-top: 100px;
+  width: 400px;
+  aspect-ratio: 3/4;
+}
