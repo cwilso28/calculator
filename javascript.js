@@ -23,3 +23,13 @@ function divide(a, b) {
 // console.log(multiply(-2,4))
 // console.log(divide(1, 4))
 // console.log(divide(1, 0))
+
+let firstNumber = 0;
+let operation = '';
+let secondNumber = 0;
+
+function operator(firstNumber, secondNumber, operation) {
+    return operation(firstNumber, secondNumber);
+};
+
+// console.log(operator(3, 5, add));
