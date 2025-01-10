@@ -33,10 +33,32 @@ function operator(firstNumber, secondNumber, operation) {
 };
 
 divArray = ["CE", "+/-", "%", "divide", "7", "8", "9", "multiply", "4", "5", "6", "minus", "1", "2", "3", "plus", "0", "period", "="]
-for (item of divArray) {
-    let container = document.querySelector(".button-panel");
+divObject = {'clear':['CE', 'helper'], 
+             'sign':['+/-', 'helper'], 
+             'percent':['%', 'helper'],
+             'divide':['/', 'operator'], 
+             'seven':['7', 'number'], 
+             'eight':['8', 'number'], 
+             'nine':['9', 'number'], 
+             'multiply':['x', 'operator'], 
+             'four':['4', 'number'], 
+             'five':['5', 'number'], 
+             'six':['6', 'number'], 
+             'minus':['-', 'operator'], 
+             'one':['1', 'number'], 
+             'two':['2', 'number'],
+             'three':['3', 'number'],
+             'plus':['+', 'operator'],
+             'zero':['0', 'number'],
+             'decimal':['.', 'number'],
+             'equal': ['=', 'operator']};
+let container = document.querySelector(".button-panel");
+
+for (key in divObject) {
     let calcButton = document.createElement("button");
-    calcButton.id = item;
+    calcButton.id = key;
+    calcButton.classList.add(divObject[key][1])
+    calcButton.textContent = divObject[key][0];
     container.appendChild(calcButton);
-}
+};
 // console.log(operator(3, 5, add));

@@ -14,3 +14,13 @@ body {
   width: 400px;
   aspect-ratio: 3/4;
 }
+
+#screen {
+  /* display: flex; */
+  margin: 20px;
+  height: 75px;
+}
+
+.number{
+  background-color: red;
+}
