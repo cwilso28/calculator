@@ -23,6 +23,7 @@ body {
   border: 5px solid black;
   background-color: white;
 }
+
 .button-panel {
   display: flex;
   flex-flow: wrap;
@@ -30,18 +31,19 @@ body {
 }
 
 button {
-  /* box-sizing: border-box; */
+  box-sizing: border-box;
   width: 100px;
   aspect-ratio: 1/1;
-  /* margin: 0px 2px; */
+  font-size: 30px;
 }
 
 #zero{
   width: 200;
   flex-grow: 1;
   aspect-ratio: auto;
-  /* margin-right: 2px; */
 }
-.number{
+
+/* .number,
+.operator {
   background-color: orange;
-}
+} */

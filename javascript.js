@@ -32,7 +32,6 @@ function operator(firstNumber, secondNumber, operation) {
     return operation(firstNumber, secondNumber);
 };
 
-// divArray = ["CE", "+/-", "%", "divide", "7", "8", "9", "multiply", "4", "5", "6", "minus", "1", "2", "3", "plus", "0", "period", "="]
 divObject = {'clear':['CE', 'helper'], 
              'sign':['+/-', 'helper'], 
              'percent':['%', 'helper'],
