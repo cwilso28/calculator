@@ -24,9 +24,9 @@ function divide(a, b) {
 // console.log(divide(1, 4))
 // console.log(divide(1, 0))
 
-let firstNumber = 0;
-let operation = '';
-let secondNumber = 0;
+let firstNumber;
+let operation;
+let secondNumber;
 
 function operator(firstNumber, secondNumber, operation) {
     return operation(firstNumber, secondNumber);
@@ -35,19 +35,19 @@ function operator(firstNumber, secondNumber, operation) {
 divObject = {'clear':['CE', 'helper'], 
              'sign':['+/-', 'helper'], 
              'percent':['%', 'helper'],
-             'divide':['/', 'operator'], 
+             'divide':['/', 'operator', divide], 
              'seven':['7', 'number'], 
              'eight':['8', 'number'], 
              'nine':['9', 'number'], 
-             'multiply':['x', 'operator'], 
+             'multiply':['x', 'operator', multiply], 
              'four':['4', 'number'], 
              'five':['5', 'number'], 
              'six':['6', 'number'], 
-             'minus':['-', 'operator'], 
+             'minus':['-', 'operator', subtract], 
              'one':['1', 'number'], 
              'two':['2', 'number'],
              'three':['3', 'number'],
-             'plus':['+', 'operator'],
+             'plus':['+', 'operator', add],
              'zero':['0', 'number'],
              'decimal':['.', 'number'],
              'equal': ['=', 'operator']};
@@ -80,6 +80,11 @@ function writeToScreen(input) {
     else if (input === '.' && screenContainer.textContent.includes('.')) {
         screenContainer.textContent += '';
     }
+
+    else if (screenContainer.textContent.length >= 12) {
+        screenContainer.textContent += '';
+    }
+
     else {
         screenContainer.textContent += input;
     }
@@ -87,6 +92,12 @@ function writeToScreen(input) {
 
 function clearScreen() {
     screenContainer.textContent = '0';
+}
+
+function resetCalculator() {
+    firstNumber = '';
+    operation = '';
+    secondNumber = '';
 }
 
 clearScreen();
@@ -98,6 +109,20 @@ buttonPanelContainer.addEventListener("click", function(e) {
     }
 
     if (e.target && e.target.matches("#clear")) {
-        clearScreen()
+        clearScreen();
+        resetCalculator();
+    }
+
+    if (e.target && e.target.matches(".operator")) {
+        if (!firstNumber) {
+            firstNumber = Number(screenContainer.textContent);
+            operation = divObject[e.target.id][2];
+            console.log(operation)
+            // clearScreen();
+        }
+        else if (firstNumber && !secondNumber) {
+            secondNumber = Number(screenContainer.textContent);
+            screenContainer.textContent = String(operation(firstNumber, secondNumber));            
+        }
     }
 })
