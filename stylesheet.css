@@ -17,7 +17,7 @@ body {
 }
 
 #screen {
-  /* display: flex; */
+  display: flex;
   margin: 20px;
   height: 75px;
   border: 5px solid black;
@@ -43,7 +43,9 @@ button {
   aspect-ratio: auto;
 }
 
+
 /* .number,
 .operator {
   background-color: orange;
 } */
+

@@ -51,13 +51,53 @@ divObject = {'clear':['CE', 'helper'],
              'zero':['0', 'number'],
              'decimal':['.', 'number'],
              'equal': ['=', 'operator']};
-let container = document.querySelector(".button-panel");
+let buttonPanelContainer = document.querySelector(".button-panel");
 
 for (key in divObject) {
     let calcButton = document.createElement("button");
     calcButton.id = key;
     calcButton.classList.add(divObject[key][1])
     calcButton.textContent = divObject[key][0];
-    container.appendChild(calcButton);
+    buttonPanelContainer.appendChild(calcButton);
 };
 // console.log(operator(3, 5, add));
+
+// Console display functions
+let screenContainer = document.querySelector("#screen");
+
+function writeToScreen(input) {
+    if (screenContainer.textContent === '0') {
+        if (input === '.') {
+            screenContainer.textContent += input;
+        }
+
+        else {
+            screenContainer.textContent = '';
+            screenContainer.textContent = input;
+        }
+    }
+
+    else if (input === '.' && screenContainer.textContent.includes('.')) {
+        screenContainer.textContent += '';
+    }
+    else {
+        screenContainer.textContent += input;
+    }
+}
+
+function clearScreen() {
+    screenContainer.textContent = '0';
+}
+
+clearScreen();
+
+buttonPanelContainer.addEventListener("click", function(e) {
+    if (e.target && e.target.matches(".number")) {
+        const selectedNumber = e.target;
+        writeToScreen(selectedNumber.textContent)
+    }
+
+    if (e.target && e.target.matches("#clear")) {
+        clearScreen()
+    }
+})
