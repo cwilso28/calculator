@@ -97,6 +97,12 @@ function writeToScreen(input) {
     // }
 }
 
+function round(num, decimalPlaces = 0) {
+    let p = Math.pow(10, decimalPlaces);
+    let n = (num * p) * (1 + Number.EPSILON);
+    return Math.round(n) / p;
+}
+
 function parseNumber(storageNumber, inputNumber) {
     if (storageNumber === '0') {
         storageNumber = inputNumber;
