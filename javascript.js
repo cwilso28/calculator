@@ -25,8 +25,9 @@ function divide(a, b) {
 // console.log(divide(1, 0))
 
 let firstNumber = '0';
+let state = 'first';
 let operation;
-let secondNumber;
+let secondNumber = '';
 let buttonPanelContainer = document.querySelector(".button-panel");
 let screenContainer = document.querySelector("#screen");
 
@@ -69,7 +70,7 @@ for (key in divObject) {
 
 
 function writeToScreen(input) {
-    screenContainer.textContent(input)
+    screenContainer.textContent = input;
     // if (screenContainer.textContent === '0') {
     //     if (input === '.') {
     //         screenContainer.textContent += input;
@@ -99,7 +100,7 @@ function parseNumber(storageNumber, inputNumber) {
         storageNumber = inputNumber;
     }
 
-    else if (storageNumber >=12) {
+    else if (storageNumber.length >= 12) {
         storageNumber += '';
     }
 
@@ -125,61 +126,109 @@ function parseDecimal(storageNumber) {
 }
 
 function clearScreen() {
-    screenContainer.textContent = '0';
+    writeToScreen(firstNumber);
 }
 
 function resetCalculator() {
-    firstNumber = '';
+    firstNumber = '0';
     operation = '';
     secondNumber = '';
+    state = 'first';
 }
 
 clearScreen();
 
-buttonPanelContainer.addEventListener("click", function(e) {
-    if (e.target && e.target.matches(".number")) {
+function numberPress(e) {
+    if (e.target && e.target.matches(".number") && !e.target.matches("#decimal")) {
         const selectedNumber = e.target;
-        if (firstNumber && operation && !secondNumber) {
-            screenContainer.textContent = '';
-        }
-        writeToScreen(selectedNumber.textContent)
-
-        if (!firstNumber || !operation) {
-            firstNumber = Number(screenContainer.textContent);
+        if (state === 'first') {
+            firstNumber = parseNumber(firstNumber, selectedNumber.textContent);
+            writeToScreen(firstNumber);
         }
 
-        else {
-            secondNumber = Number(screenContainer.textContent);
+        else if (state === 'second') {
+            secondNumber = parseNumber(secondNumber, selectedNumber.textContent);
+            writeToScreen(secondNumber);
         }
+        console.log(state)
     }
+}
 
-    if (e.target && e.target.matches("#clear")) {
-        clearScreen();
-        resetCalculator();
-    }
-
+function operatorPress(e) {
     if (e.target && e.target.matches(".operator") && !e.target.matches("#equal")) {
+        const selectedOperator = e.target;
         
-        if (operation && secondNumber) {
-            result = String(operator(firstNumber, secondNumber, operation));
-            screenContainer.textContent = result;
-            firstNumber = Number(result);
-            secondNumber = '';
-        }
-        else {
-            operation = divObject[e.target.id][2];
+        if (state === 'first') {
+            operation = divObject[selectedOperator.id][2];
+            state = 'second';
         }
 
-
-
-    }
-
-    if (e.target && e.target.matches("#equal")) {
-        if (operation && secondNumber) {
-            result = String(operator(firstNumber, secondNumber, operation));
-            screenContainer.textContent = result;
-            firstNumber = Number(result);
+        else if (state === 'second' && secondNumber) {
+            result = String(operator(Number(firstNumber), Number(secondNumber), operation));
+            writeToScreen(result);
+            firstNumber = result;
             secondNumber = '';
+            operation = divObject[selectedOperator.id][2];
+            // state = 'first';
         }
     }
-})
+}
+
+function clearPress(e) {
+    if (e.target && e.target.matches("#clear")) {
+        resetCalculator();
+        clearScreen();
+    }
+}
+
+buttonPanelContainer.addEventListener("click", numberPress)
+buttonPanelContainer.addEventListener("click", operatorPress)
+buttonPanelContainer.addEventListener("click", clearPress)
+
+// buttonPanelContainer.addEventListener("click", function(e) {
+//     if (e.target && e.target.matches(".number")) {
+//         const selectedNumber = e.target;
+//         if (firstNumber && operation && !secondNumber) {
+//             screenContainer.textContent = '';
+//         }
+//         writeToScreen(selectedNumber.textContent)
+
+//         if (!firstNumber || !operation) {
+//             firstNumber = Number(screenContainer.textContent);
+//         }
+
+//         else {
+//             secondNumber = Number(screenContainer.textContent);
+//         }
+//     }
+
+//     if (e.target && e.target.matches("#clear")) {
+//         resetCalculator();
+//         clearScreen();
+//     }
+
+//     if (e.target && e.target.matches(".operator") && !e.target.matches("#equal")) {
+        
+//         if (operation && secondNumber) {
+//             result = String(operator(firstNumber, secondNumber, operation));
+//             screenContainer.textContent = result;
+//             firstNumber = Number(result);
+//             secondNumber = '';
+//         }
+//         else {
+//             operation = divObject[e.target.id][2];
+//         }
+
+
+
+//     }
+
+//     if (e.target && e.target.matches("#equal")) {
+//         if (operation && secondNumber) {
+//             result = String(operator(firstNumber, secondNumber, operation));
+//             screenContainer.textContent = result;
+//             firstNumber = Number(result);
+//             secondNumber = '';
+//         }
+//     }
+// })
