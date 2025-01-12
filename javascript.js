@@ -27,6 +27,8 @@ function divide(a, b) {
 let firstNumber;
 let operation;
 let secondNumber;
+let buttonPanelContainer = document.querySelector(".button-panel");
+let screenContainer = document.querySelector("#screen");
 
 function operator(firstNumber, secondNumber, operation) {
     return operation(firstNumber, secondNumber);
@@ -52,8 +54,7 @@ divObject = {'clear':['CE', 'helper'],
              'decimal':['.', 'number'],
              'equal': ['=', 'operator']};
 
-console.log(divObject['equal'][2])
-let buttonPanelContainer = document.querySelector(".button-panel");
+
 
 for (key in divObject) {
     let calcButton = document.createElement("button");
@@ -65,7 +66,7 @@ for (key in divObject) {
 // console.log(operator(3, 5, add));
 
 // Console display functions
-let screenContainer = document.querySelector("#screen");
+
 
 function writeToScreen(input) {
     if (screenContainer.textContent === '0') {
