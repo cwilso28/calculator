@@ -70,7 +70,9 @@ for (key in divObject) {
 
 
 function writeToScreen(input) {
-    screenContainer.textContent = input;
+    parsedInput = parseForError(input);
+    screenContainer.textContent = parsedInput;
+
     // if (screenContainer.textContent === '0') {
     //     if (input === '.') {
     //         screenContainer.textContent += input;
@@ -125,6 +127,46 @@ function parseDecimal(storageNumber) {
     return storageNumber;
 }
 
+function parseForError(screenInput) {
+    if (screenInput == Infinity) {
+        state = 'error';
+        input = 'STOP THAT';
+    }
+    
+    else if (screenInput.includes('-') && !screenInput.includes('.')) {
+        if (screenInput.length > 13) {
+            state = 'error';
+            input = 'OVERFLOW';
+        }
+
+        else {
+            input = screenInput;
+        }
+    }
+
+    else if (!screenInput.includes('-') && !screenInput.includes('.')) {
+        if (screenInput.length > 12) {
+            state = 'error';
+            input = 'OVERFLOW';
+        }
+
+        else {
+            input = screenInput;
+        }
+    }
+
+    // else if (screenInput.includes('.') && screenInput.includes('-')) {
+    //     if (screenInput.length > 13) {
+
+    //     }
+    // }
+
+    else {
+        input = screenInput;
+    }
+    return input;
+}
+
 function clearScreen() {
     writeToScreen(firstNumber);
 }
@@ -154,8 +196,8 @@ function numberPress(e) {
         else if (state === 'equal') {
             firstNumber = '';
             firstNumber = parseNumber(firstNumber, selectedNumber.textContent);
-            writeToScreen(firstNumber);
             state = 'first'
+            writeToScreen(firstNumber);            
         }
         console.log(state)
     }
@@ -197,10 +239,10 @@ function equalPress(e) {
     if (e.target && e.target.matches("#equal")) {
         if (state === 'second' && secondNumber) {
             result = String(operator(Number(firstNumber), Number(secondNumber), operation));
+            state = 'equal';
             writeToScreen(result);
             firstNumber = result;
-            secondNumber = '';
-            state = 'equal';
+            secondNumber = '';            
         }
         console.log(state)
     }
@@ -221,8 +263,8 @@ function decimalPress(e) {
         else if (state === 'equal') {
             firstNumber = '';
             firstNumber = parseDecimal(firstNumber);
-            writeToScreen(firstNumber);
             state = 'first';
+            writeToScreen(firstNumber);
         }
     }
 }
@@ -230,17 +272,17 @@ function decimalPress(e) {
 function signPress(e) {
     if (e.target && e.target.matches('#sign')) {
         if (state === 'first' && firstNumber !== '0') {
-            firstNumber = (-1) * firstNumber;
+            firstNumber = String((-1) * Number(firstNumber));
             writeToScreen(firstNumber);
         }
 
         else if (state === 'second') {
-            secondNumber = (-1) * secondNumber;
+            secondNumber = String((-1) * Number(secondNumber));
             writeToScreen(secondNumber);
         }
 
         else if (state === 'equal') {
-            firstNumber = (-1) * firstNumber;
+            firstNumber = String((-1) * Number(firstNumber));
             writeToScreen(firstNumber);
         }
         console.log(state)
