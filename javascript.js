@@ -24,7 +24,7 @@ function divide(a, b) {
 // console.log(divide(1, 4))
 // console.log(divide(1, 0))
 
-let firstNumber;
+let firstNumber = '0';
 let operation;
 let secondNumber;
 let buttonPanelContainer = document.querySelector(".button-panel");
@@ -69,28 +69,59 @@ for (key in divObject) {
 
 
 function writeToScreen(input) {
-    if (screenContainer.textContent === '0') {
-        if (input === '.') {
-            screenContainer.textContent += input;
-        }
+    screenContainer.textContent(input)
+    // if (screenContainer.textContent === '0') {
+    //     if (input === '.') {
+    //         screenContainer.textContent += input;
+    //     }
 
-        else {
-            screenContainer.textContent = '';
-            screenContainer.textContent = input;
-        }
+    //     else {
+    //         screenContainer.textContent = '';
+    //         screenContainer.textContent = input;
+    //     }
+    // }
+
+    // else if (input === '.' && screenContainer.textContent.includes('.')) {
+    //     screenContainer.textContent += '';
+    // }
+
+    // else if (screenContainer.textContent.length >= 12) {
+    //     screenContainer.textContent += '';
+    // }
+
+    // else {
+    //     screenContainer.textContent += input;
+    // }
+}
+
+function parseNumber(storageNumber, inputNumber) {
+    if (storageNumber === '0') {
+        storageNumber = inputNumber;
     }
 
-    else if (input === '.' && screenContainer.textContent.includes('.')) {
-        screenContainer.textContent += '';
-    }
-
-    else if (screenContainer.textContent.length >= 12) {
-        screenContainer.textContent += '';
+    else if (storageNumber >=12) {
+        storageNumber += '';
     }
 
     else {
-        screenContainer.textContent += input;
+        storageNumber += inputNumber;
     }
+    return storageNumber;
+}
+
+function parseDecimal(storageNumber) {
+    if (storageNumber === '0') {
+        storageNumber += '.';
+    }
+    
+    else if (storageNumber === '') {
+        storageNumber = '0.';
+    }
+
+    else {
+        storageNumber += '.';
+    };
+    return storageNumber;
 }
 
 function clearScreen() {
