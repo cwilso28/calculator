@@ -138,7 +138,17 @@ function parseForError(screenInput) {
         state = 'error';
         input = 'STOP THAT';
     }
-    
+
+    else if (screenInput.includes('e+') && !screenInput.includes('e-')) {
+        state = 'error';
+        input = 'OVERFLOW';
+    }
+
+    else if (screenInput.includes('e-')) {
+        truncatedFloat = Number(screenInput).toFixed(13);
+        input = parseForError(truncatedFloat);
+    }
+
     else if (screenInput.includes('-') && !screenInput.includes('.')) {
         if (screenInput.length > 13) {
             state = 'error';
@@ -159,11 +169,6 @@ function parseForError(screenInput) {
         else {
             input = screenInput;
         }
-    }
-
-    else if (screenInput.includes('e') && !screenInput.includes('e-')) {
-        state = 'error';
-        input = 'OVERFLOW';
     }
 
     else if (screenInput.includes('.') && screenInput.includes('-')) {
