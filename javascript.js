@@ -227,11 +227,13 @@ function decimalPress(e) {
     }
 }
 
-buttonPanelContainer.addEventListener("click", numberPress)
-buttonPanelContainer.addEventListener("click", operatorPress)
-buttonPanelContainer.addEventListener("click", clearPress)
-buttonPanelContainer.addEventListener("click", equalPress)
-buttonPanelContainer.addEventListener("click", decimalPress)
+buttonPanelContainer.addEventListener("click", function(e) {
+    numberPress(e);
+    operatorPress(e);
+    equalPress(e);
+    clearPress(e);
+    decimalPress(e);
+});
 
 // buttonPanelContainer.addEventListener("click", function(e) {
 //     if (e.target && e.target.matches(".number")) {
