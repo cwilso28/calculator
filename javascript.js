@@ -27,7 +27,6 @@ function divide(a, b) {
 let firstNumber;
 let operation;
 let secondNumber;
-let holdingNumber;
 
 function operator(firstNumber, secondNumber, operation) {
     return operation(firstNumber, secondNumber);
@@ -52,6 +51,8 @@ divObject = {'clear':['CE', 'helper'],
              'zero':['0', 'number'],
              'decimal':['.', 'number'],
              'equal': ['=', 'operator']};
+
+console.log(divObject['equal'][2])
 let buttonPanelContainer = document.querySelector(".button-panel");
 
 for (key in divObject) {
@@ -106,7 +107,18 @@ clearScreen();
 buttonPanelContainer.addEventListener("click", function(e) {
     if (e.target && e.target.matches(".number")) {
         const selectedNumber = e.target;
+        if (firstNumber && operation && !secondNumber) {
+            screenContainer.textContent = '';
+        }
         writeToScreen(selectedNumber.textContent)
+
+        if (!firstNumber || !operation) {
+            firstNumber = Number(screenContainer.textContent);
+        }
+
+        else {
+            secondNumber = Number(screenContainer.textContent);
+        }
     }
 
     if (e.target && e.target.matches("#clear")) {
@@ -114,17 +126,27 @@ buttonPanelContainer.addEventListener("click", function(e) {
         resetCalculator();
     }
 
-    if (e.target && e.target.matches(".operator")) {
-        if (!firstNumber) {
-            firstNumber = Number(screenContainer.textContent);
-            operation = divObject[e.target.id][2];
-            // clearScreen();
-        }
-        else if (firstNumber && !secondNumber) {
-            secondNumber = Number(screenContainer.textContent);
-            result = String(operation(firstNumber, secondNumber));
+    if (e.target && e.target.matches(".operator") && !e.target.matches("#equal")) {
+        
+        if (operation && secondNumber) {
+            result = String(operator(firstNumber, secondNumber, operation));
             screenContainer.textContent = result;
-            firstNumber = result;
+            firstNumber = Number(result);
+            secondNumber = '';
+        }
+        else {
+            operation = divObject[e.target.id][2];
+        }
+
+
+
+    }
+
+    if (e.target && e.target.matches("#equal")) {
+        if (operation && secondNumber) {
+            result = String(operator(firstNumber, secondNumber, operation));
+            screenContainer.textContent = result;
+            firstNumber = Number(result);
             secondNumber = '';
         }
     }
