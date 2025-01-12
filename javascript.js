@@ -150,6 +150,13 @@ function numberPress(e) {
             secondNumber = parseNumber(secondNumber, selectedNumber.textContent);
             writeToScreen(secondNumber);
         }
+
+        else if (state === 'equal') {
+            firstNumber = '';
+            firstNumber = parseNumber(firstNumber, selectedNumber.textContent);
+            writeToScreen(firstNumber);
+            state = 'first'
+        }
         console.log(state)
     }
 }
@@ -171,6 +178,11 @@ function operatorPress(e) {
             operation = divObject[selectedOperator.id][2];
             // state = 'first';
         }
+        else if (state === 'equal') {
+            state = 'second';
+            operation = divObject[selectedOperator.id][2];
+        }
+        console.log(state)
     }
 }
 
@@ -186,10 +198,11 @@ function equalPress(e) {
         if (state === 'second' && secondNumber) {
             result = String(operator(Number(firstNumber), Number(secondNumber), operation));
             writeToScreen(result);
-            firstNumber = '';
+            firstNumber = result;
             secondNumber = '';
-            state = 'first';
+            state = 'equal';
         }
+        console.log(state)
     }
 }
 
