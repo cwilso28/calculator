@@ -222,8 +222,28 @@ function decimalPress(e) {
             firstNumber = '';
             firstNumber = parseDecimal(firstNumber);
             writeToScreen(firstNumber);
-            state = 'first'
+            state = 'first';
         }
+    }
+}
+
+function signPress(e) {
+    if (e.target && e.target.matches('#sign')) {
+        if (state === 'first' && firstNumber !== '0') {
+            firstNumber = (-1) * firstNumber;
+            writeToScreen(firstNumber);
+        }
+
+        else if (state === 'second') {
+            secondNumber = (-1) * secondNumber;
+            writeToScreen(secondNumber);
+        }
+
+        else if (state === 'equal') {
+            firstNumber = (-1) * firstNumber;
+            writeToScreen(firstNumber);
+        }
+        console.log(state)
     }
 }
 
@@ -232,7 +252,8 @@ buttonPanelContainer.addEventListener("click", function(e) {
     operatorPress(e);
     equalPress(e);
     clearPress(e);
-    decimalPress(e);
+    decimalPress(e)
+    signPress(e);
 });
 
 // buttonPanelContainer.addEventListener("click", function(e) {
