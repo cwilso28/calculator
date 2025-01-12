@@ -206,10 +206,32 @@ function equalPress(e) {
     }
 }
 
+function decimalPress(e) {
+    if (e.target && e.target.matches("#decimal")) {
+        if (state === 'first' && !firstNumber.includes('.')) {
+            firstNumber = parseDecimal(firstNumber);
+            writeToScreen(firstNumber);
+        }
+
+        else if (state === 'second' && !secondNumber.includes('.')) {
+            secondNumber = parseDecimal(secondNumber);
+            writeToScreen(secondNumber);
+        }
+
+        else if (state === 'equal') {
+            firstNumber = '';
+            firstNumber = parseDecimal(firstNumber);
+            writeToScreen(firstNumber);
+            state = 'first'
+        }
+    }
+}
+
 buttonPanelContainer.addEventListener("click", numberPress)
 buttonPanelContainer.addEventListener("click", operatorPress)
 buttonPanelContainer.addEventListener("click", clearPress)
 buttonPanelContainer.addEventListener("click", equalPress)
+buttonPanelContainer.addEventListener("click", decimalPress)
 
 // buttonPanelContainer.addEventListener("click", function(e) {
 //     if (e.target && e.target.matches(".number")) {
