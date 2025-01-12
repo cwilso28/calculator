@@ -158,7 +158,7 @@ function operatorPress(e) {
     if (e.target && e.target.matches(".operator") && !e.target.matches("#equal")) {
         const selectedOperator = e.target;
         
-        if (state === 'first') {
+        if (state === 'first' && firstNumber) {
             operation = divObject[selectedOperator.id][2];
             state = 'second';
         }
@@ -181,9 +181,22 @@ function clearPress(e) {
     }
 }
 
+function equalPress(e) {
+    if (e.target && e.target.matches("#equal")) {
+        if (state === 'second' && secondNumber) {
+            result = String(operator(Number(firstNumber), Number(secondNumber), operation));
+            writeToScreen(result);
+            firstNumber = '';
+            secondNumber = '';
+            state = 'first';
+        }
+    }
+}
+
 buttonPanelContainer.addEventListener("click", numberPress)
 buttonPanelContainer.addEventListener("click", operatorPress)
 buttonPanelContainer.addEventListener("click", clearPress)
+buttonPanelContainer.addEventListener("click", equalPress)
 
 // buttonPanelContainer.addEventListener("click", function(e) {
 //     if (e.target && e.target.matches(".number")) {
