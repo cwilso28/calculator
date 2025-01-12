@@ -161,11 +161,27 @@ function parseForError(screenInput) {
         }
     }
 
-    // else if (screenInput.includes('.') && screenInput.includes('-')) {
-    //     if (screenInput.length > 13) {
+    else if (screenInput.includes('.') && screenInput.includes('-')) {
+        if (screenInput.length > 13) {
+            spaceForDecimal = 12 - screenInput.split('.')[0].length;
+            input = String(round(Number(screenInput), spaceForDecimal));
+        }
 
-    //     }
-    // }
+        else {
+            input = screenInput;
+        }
+    }
+
+    else if (screenInput.includes('.') && !screenInput.includes('-')) {
+        if (screenInput.length > 12) {
+            spaceForDecimal = 11 - screenInput.split('.')[0].length;
+            input = String(round(Number(screenInput), spaceForDecimal));
+        }
+
+        else {
+            input = screenInput;
+        }
+    }
 
     else {
         input = screenInput;
