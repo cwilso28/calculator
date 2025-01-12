@@ -27,6 +27,7 @@ function divide(a, b) {
 let firstNumber;
 let operation;
 let secondNumber;
+let holdingNumber;
 
 function operator(firstNumber, secondNumber, operation) {
     return operation(firstNumber, secondNumber);
@@ -117,12 +118,14 @@ buttonPanelContainer.addEventListener("click", function(e) {
         if (!firstNumber) {
             firstNumber = Number(screenContainer.textContent);
             operation = divObject[e.target.id][2];
-            console.log(operation)
             // clearScreen();
         }
         else if (firstNumber && !secondNumber) {
             secondNumber = Number(screenContainer.textContent);
-            screenContainer.textContent = String(operation(firstNumber, secondNumber));            
+            result = String(operation(firstNumber, secondNumber));
+            screenContainer.textContent = result;
+            firstNumber = result;
+            secondNumber = '';
         }
     }
 })
