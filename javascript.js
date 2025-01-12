@@ -161,6 +161,11 @@ function parseForError(screenInput) {
         }
     }
 
+    else if (screenInput.includes('e') && !screenInput.includes('e-')) {
+        state = 'error';
+        input = 'OVERFLOW';
+    }
+
     else if (screenInput.includes('.') && screenInput.includes('-')) {
         if (screenInput.length > 13) {
             spaceForDecimal = 12 - screenInput.split('.')[0].length;
