@@ -37,7 +37,7 @@ function operator(firstNumber, secondNumber, operation) {
 
 divObject = {'clear':['CE', 'helper'], 
              'sign':['+/-', 'helper'], 
-             'percent':['%', 'helper'],
+             'backspace':['<', 'helper'],
              'divide':['/', 'operator', divide], 
              'seven':['7', 'number'], 
              'eight':['8', 'number'], 
