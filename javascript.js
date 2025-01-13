@@ -77,7 +77,7 @@ function writeToScreen(input) {
 function round(num, decimalPlaces = 0) {
     let p = Math.pow(10, decimalPlaces);
     let n = (num * p) * (1 + Number.EPSILON);
-    return Math.round(n) / p;
+    return (Math.round(n) / p).toFixed(decimalPlaces).replace(/(?:\.0+|(\.\d+?)0+)$/, "$1");
 }
 
 function parseNumber(storageNumber, inputNumber) {
@@ -120,7 +120,7 @@ function parseForError(screenInput) {
         input = 'STOP THAT';
     }
 
-    else if (screenInput.includes('e+') && !screenInput.includes('e-')) {
+    else if (screenInput.includes('e+')) {
         state = 'error';
         input = 'OVERFLOW';
     }
@@ -155,7 +155,7 @@ function parseForError(screenInput) {
     else if (screenInput.includes('.') && screenInput.includes('-')) {
         if (screenInput.length > 13) {
             spaceForDecimal = 12 - screenInput.split('.')[0].length;
-            input = String(round(Number(screenInput), spaceForDecimal));
+            input = round(Number(screenInput), spaceForDecimal);
         }
 
         else {
@@ -166,7 +166,7 @@ function parseForError(screenInput) {
     else if (screenInput.includes('.') && !screenInput.includes('-')) {
         if (screenInput.length > 12) {
             spaceForDecimal = 11 - screenInput.split('.')[0].length;
-            input = String(round(Number(screenInput), spaceForDecimal));
+            input = round(Number(screenInput), spaceForDecimal);
         }
 
         else {
