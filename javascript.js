@@ -321,6 +321,26 @@ function signPress(e) {
     }
 }
 
+function backspacePress(e) {
+    if (e.target && e.target.matches('#backspace')) {
+        if (state === 'first' && firstNumber) {
+            firstNumber = firstNumber.slice(0, firstNumber.length - 1);
+            if (!firstNumber) {
+                firstNumber = '0';
+            }
+            writeToScreen(firstNumber);
+        }
+
+        else if (state === 'second' && secondNumber) {
+            secondNumber = secondNumber.slice(0, secondNumber.length - 1);
+            if (!secondNumber) {
+                secondNumber = '0'
+            };
+            writeToScreen(secondNumber);
+        }
+    }
+}
+
 buttonPanelContainer.addEventListener("click", function(e) {
     numberPress(e);
     operatorPress(e);
@@ -328,6 +348,7 @@ buttonPanelContainer.addEventListener("click", function(e) {
     clearPress(e);
     decimalPress(e)
     signPress(e);
+    backspacePress(e);
 });
 
 // buttonPanelContainer.addEventListener("click", function(e) {
