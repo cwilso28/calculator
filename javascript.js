@@ -35,7 +35,7 @@ function operator(firstNumber, secondNumber, operation) {
     return operation(firstNumber, secondNumber);
 };
 
-divObject = {'clear':['CE', 'helper'], 
+let divObject = {'clear':['CE', 'helper'], 
              'sign':['+/-', 'helper'], 
              'backspace':['<', 'helper'],
              'divide':['/', 'operator', divide], 
@@ -85,7 +85,11 @@ function parseNumber(storageNumber, inputNumber) {
         storageNumber = inputNumber;
     }
 
-    else if (storageNumber.length >= 12) {
+    else if (storageNumber.length >= 12 && !storageNumber.includes('-')) {
+        storageNumber += '';
+    }
+
+    else if (storageNumber.length >=13 && storageNumber.includes('-')) {
         storageNumber += '';
     }
 
@@ -327,3 +331,27 @@ buttonPanelContainer.addEventListener("click", function(e) {
     signPress(e);
     backspacePress(e);
 });
+
+let keyMap = {'1':'one',
+              '2':'two',
+              '3':'three',
+              '4':'four',
+              '5':'five',
+              '6':'six',
+              '7':'seven',
+              '8':'eight',
+              '9':'nine',
+              '0':'zero',
+              '.':'decimal',
+              'Backspace':'backspace',
+              '*':'multiply',
+              '/':'divide',
+              '+':'plus',
+              '-':'minus',
+              'Enter':'equal'};
+
+function keydown(e) {
+    document.getElementById(keyMap[e.key]).click();
+}
+
+document.addEventListener("keydown", keydown);

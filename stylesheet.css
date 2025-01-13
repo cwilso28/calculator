@@ -13,18 +13,20 @@ body {
   margin-top: 100px;
   width: 400px;
   aspect-ratio: 3/4;
-  background-color: silver;
+  background-color: black;
+  border: 5px solid rgb(73, 73, 73);
 }
 
 #screen {
   display: flex;
   margin: 20px;
   height: 75px;
-  border: 5px solid black;
-  background-color: white;
+  border: 5px solid rgb(73, 73, 73);
+  background-color: rgb(116, 172, 32);
   justify-content: right;
   align-items: center;
-  font-size: 50px;
+  font-size: 45px;
+  font-family: 'Courier New', monospace;
 }
 
 .button-panel {
@@ -47,8 +49,15 @@ button {
 }
 
 
-/* .number,
+.number {
+  background-color: aquamarine;
+}
+
 .operator {
-  background-color: orange;
-} */
+  background-color: rgb(88, 231, 231);
+}
+
+.helper {
+  background-color: rgb(153, 27, 153);
+}
 
